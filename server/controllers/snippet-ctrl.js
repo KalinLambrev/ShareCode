@@ -2,10 +2,8 @@ const Snippet = require('../models/snippet-model')
 
 createSnippet = (req, res) => {
     const body = req.body
-    console.log(req.body, 'KOKOSHKA');
 
     if (!body) {
-        console.log('not gut', snippet);
         return res.status(400).json({
             success: false,
             error: 'You must provide a snippet',
@@ -15,7 +13,6 @@ createSnippet = (req, res) => {
     const snippet = new Snippet(body)
 
     if (!snippet) {
-        console.log('not gut', snippet);
         return res.status(400).json({ success: false, error: err })
     }
 
@@ -29,7 +26,6 @@ createSnippet = (req, res) => {
             })
         })
         .catch(error => {
-            console.log('not Put', snippet);
             return res.status(400).json({
                 error,
                 message: 'Code snippet not created!',
