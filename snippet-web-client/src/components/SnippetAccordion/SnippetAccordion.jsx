@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import api from '../../api/index';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,15 +25,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SnippetAccordion(props) {
-    console.log(props, 'OOOOHOOOO');
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+
+    const [count, setCount] = useState(props.snippet.likes);
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
     const displayTags = (tags) => {
+
         const returnTags = [];
         if (tags) {
             tags
@@ -50,9 +53,13 @@ export default function SnippetAccordion(props) {
         return returnTags;
     }
 
-    const likeSnippet = () => {
-        console.log('Liked');
+    const likeSnippetNew = async () => {
+        setCount(count + 1);
+        let newLike = count + 1;
+        api.updateSnippetById(props.snippet._id, { name: props.snippet.name, tags: props.snippet.tags, likes: newLike, code: props.snippet.code });
     }
+
+
     console.log(props.snippet, 'OOOOHOOOO');
 
     return (
@@ -61,11 +68,11 @@ export default function SnippetAccordion(props) {
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
                     <Typography className={classes.heading}>{props.snippet.name}</Typography>
                     <Typography className={classes.secondaryHeading}>{displayTags(props.snippet.tags)}</Typography>
-                    <Typography className={classes.secondaryHeading}>{props.snippet.likes}</Typography>
+                    <Typography className={classes.secondaryHeading}>{count}</Typography>
                     <Typography className={classes.secondaryHeading}>
                         <div className="like-button">
 
-                            <button onClick={likeSnippet} >Like</button>
+                            <button onClick={likeSnippetNew} >Like</button>
                         </div>
                     </Typography>
                 </AccordionSummary>

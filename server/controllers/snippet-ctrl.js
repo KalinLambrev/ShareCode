@@ -1,19 +1,19 @@
-const Snippet = require('../models/snippet-model')
+const Snippet = require('../models/snippet-model');
 
 createSnippet = (req, res) => {
-    const body = req.body
+    const body = req.body;
 
     if (!body) {
         return res.status(400).json({
             success: false,
             error: 'You must provide a snippet',
-        })
+        });
     }
 
-    const snippet = new Snippet(body)
+    const snippet = new Snippet(body);
 
     if (!snippet) {
-        return res.status(400).json({ success: false, error: err })
+        return res.status(400).json({ success: false, error: err });
     }
 
     snippet
@@ -23,14 +23,14 @@ createSnippet = (req, res) => {
                 success: true,
                 id: snippet._id,
                 message: 'Code snippet created!',
-            })
+            });
         })
         .catch(error => {
             return res.status(400).json({
                 error,
                 message: 'Code snippet not created!',
-            })
-        })
+            });
+        });
 }
 
 updateSnippet = async (req, res) => {

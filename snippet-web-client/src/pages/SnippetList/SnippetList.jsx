@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '../../api';
+import api from '../../api/';
 import SnippetAccordion from '../../components/SnippetAccordion/SnippetAccordion';
 class SnippetList extends React.PureComponent {
     constructor(props) {

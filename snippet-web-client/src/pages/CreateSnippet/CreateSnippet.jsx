@@ -18,7 +18,7 @@ class CreateSnippet extends React.PureComponent {
     handleChangeInputName = async event => {
         const name = event.target.value
         console.log(name);
-        this.setState({ name: name })
+        this.setState({ name: name });
     }
 
     handleChangeInputTags = async event => {
@@ -26,7 +26,6 @@ class CreateSnippet extends React.PureComponent {
             ? event.target.value
             : this.state.tags
         const arrayTags = tags.split(', ');
-        console.log(arrayTags);
         this.setState({ tags: arrayTags });
     }
 
@@ -36,11 +35,26 @@ class CreateSnippet extends React.PureComponent {
         this.setState({ code: code });
     }
 
+    checkIfDuplicateExists = (w) => {
+        let op = [];
+        console.log(w);
+        w.forEach((element, index) => {
+            if (w.indexOf(element) != index) {
+                op.push(element);
+            }
+        });
+        return op;
+    }
+
     handleAddSnippet = async () => {
         const { name, tags, code, likes } = this.state;
-        console.log(tags);
-        const arrayTags = tags + '';
-        const sendTags = arrayTags.split(', ')
+        const arrayTags = tags;
+
+        let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) === index);
+
+        const sendTags = findDuplicates(arrayTags);
+        console.log(sendTags);
+
 
         const payload = { name, tags: sendTags, code, likes };
 
