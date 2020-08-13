@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactTable from 'react-table'
-import api from '../../api'
-
+import api from '../../api';
+import SnippetAccordion from '../../components/SnippetAccordion/SnippetAccordion';
 class SnippetList extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -24,47 +23,11 @@ class SnippetList extends React.PureComponent {
     }
 
     render() {
-        const { snippets, isLoading } = this.state
-        console.log('TCL: SnippetList -> render -> snippets', snippets);
-
-        const columns = [
-            {
-                Header: 'ID',
-                accessor: '_id',
-                filterable: true,
-            },
-            {
-                Header: 'Name',
-                accessor: 'name',
-                filterable: true,
-            },
-            {
-                Header: 'Tags',
-                accessor: 'tags',
-                Cell: props => <span>{props.value.join(' / ')}</span>,
-            },
-            {
-                Header: 'Likes',
-                accessor: 'likes',
-            },
-        ]
-
-        let showTable = true;
-        if (!snippets.length) {
-            showTable = false;
-        }
-
+        console.log(this.state.snippets);
+        const snippets = this.state.snippets;
         return (
-            <div className="wrapper">
-                {showTable && (
-                    <ReactTable
-                        data={snippets}
-                        columns={columns}
-                        loading={isLoading}
-                        defaultPageSize={10}
-                        minRows={0}
-                    />
-                )}
+            <div className="list-wrapper">
+                {snippets.map(snipp => <div key={snipp}> {<SnippetAccordion snippet={snipp} />} </div>)}
             </div>
         );
     }

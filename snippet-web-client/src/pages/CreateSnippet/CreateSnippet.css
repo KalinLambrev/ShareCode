@@ -1,0 +1,72 @@
+/*Header*/
+
+.create-snippet-header {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  height: 28px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 24px;
+  color: #4c4c4c;
+}
+
+.second-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  height: 20px;
+  font-family:"Roboto", "Helvetica", "Arial", sans-serif;
+  color: #4c4c4c;
+}
+
+/*Create snippet-card*/
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/*Card Content*/ 
+
+.MuiCard-root {
+  display: flex;
+  width: 46rem;
+  height: 22rem;
+}
+
+.MuiCardMedia-media {
+  width: 35% !important;
+}
+
+.card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/*Create button*/
+
+.create-snippet-button{
+  padding-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.create-snippet-button > button {
+  border: 1px solid rgb(46, 164, 175);
+  width: 7rem;
+  height: 2.6rem;
+  border-radius: 4px;
+  background-color: rgb(46, 164, 175);
+}
+
+.create-snippet-button button{
+  color: white !important;
+  text-decoration: none !important;
+}
