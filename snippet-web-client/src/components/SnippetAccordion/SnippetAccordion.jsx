@@ -7,6 +7,8 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import api from '../../api/index';
+import Can from '../Can/Can';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,6 +61,13 @@ export default function SnippetAccordion(props) {
         api.updateSnippetById(props.snippet._id, { name: props.snippet.name, tags: props.snippet.tags, likes: newLike, code: props.snippet.code });
     }
 
+    const deleteSnippet = async () => {
+        api.deleteSnippetById(props.snippet._id)
+            .then(() => {
+                window.location.assign(`/all-snippets?role=${props.role}`);
+            });
+    }
+
     return (
         <div className={classes.root}>
             <Accordion expanded={expanded === 'panel'} onChange={handleChange('panel')}>
@@ -76,15 +85,30 @@ export default function SnippetAccordion(props) {
                         {count}
                     </Typography>
                     <Typography className={classes.secondaryHeading} component={'span'}>
-                        <div className="like-button">
-                            <button onClick={likeSnippetNew} >Like</button>
-                        </div>
+                        <Can
+                            role={props.role}
+                            perform="snippets:like"
+                            yes={() => (
+                                <div className="like-button">
+                                    <button onClick={likeSnippetNew} >Like</button>
+                                </div>
+                            )}
+                        />
+                        <Can
+                            role={props.role}
+                            perform="snippets:delete"
+                            yes={() => (
+                                <div className="like-button">
+                                    <button onClick={deleteSnippet} >Delete</button>
+                                </div>
+                            )}
+                        />
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography component={'span'}>
                         <h5 className="code-section-header">Snippet Code:</h5>
-                        {props.snippet.code}
+                        <p className="sniped-code-paragraph">{props.snippet.code}</p>
                     </Typography>
                 </AccordionDetails>
             </Accordion>

@@ -3,6 +3,7 @@ import './ChooseUser.css';
 import { Link } from 'react-router-dom';
 import api from '../../api/index';
 import { useHistory } from "react-router-dom";
+import SnippetList from '../SnippetList/SnippetList';
 
 class ChooseUser extends React.PureComponent {
 
@@ -24,7 +25,7 @@ class ChooseUser extends React.PureComponent {
                 role: '',
                 id: null
             });
-            window.location.assign('/all-snippets')
+            window.location.assign(`/all-snippets?id=${id}`);
         });
     }
 
@@ -49,8 +50,8 @@ class ChooseUser extends React.PureComponent {
 
         await api.getUserById(id)
             .then((user => {
-                console.log(user);
-                window.location.assign('/all-snippets');
+                let data = user.data.data;
+                window.location.assign(`/all-snippets?role=${data.role}`);
             }), (error) => {
                 console.log(error, 'There is no such of user. We created automaticaly');
                 this.createUser(id, wantedRole);

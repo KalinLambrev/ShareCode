@@ -6,7 +6,8 @@ const Snippet = new Schema(
         name: { type: String, required: true },
         tags: { type: [String], required: true },
         likes: { type: Number, required: true },
-        code: { type: String, required: true }
+        code: { type: String, required: true },
+        userId: { type: Number, required: true }
     },
     { timestamps: true },
 );

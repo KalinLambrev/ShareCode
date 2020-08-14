@@ -33,7 +33,7 @@ createSnippet = (req, res) => {
         });
 }
 
-updateSnippet = async(req, res) => {
+updateSnippet = async (req, res) => {
     const body = req.body;
 
     if (!body) {
@@ -72,7 +72,7 @@ updateSnippet = async(req, res) => {
     })
 }
 
-deleteSnippet = async(req, res) => {
+deleteSnippet = async (req, res) => {
     await Snippet.findOneAndDelete({ _id: req.params.id }, (err, snippet) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
@@ -88,7 +88,7 @@ deleteSnippet = async(req, res) => {
     }).catch(err => console.log(err))
 }
 
-getSnippetById = async(req, res) => {
+getSnippetById = async (req, res) => {
     await Snippet.findOne({ _id: req.params.id }, (err, snippet) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
@@ -103,7 +103,37 @@ getSnippetById = async(req, res) => {
     }).catch(err => console.log(err))
 }
 
-getSnippets = async(req, res) => {
+getSnippetsPerTag = async (req, res) => {
+    await Snippet.find({ tags: req.params.tag }, (err, snippet) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!snippet) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Snippet not found` });
+        }
+        return res.status(200).json({ success: true, data: snippet });
+    }).catch(err => console.log(err))
+}
+
+getSnippetByUserId = async (req, res) => {
+    await Snippet.find({ userId: req.params.userId }, (err, snippets) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!snippets) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Snippet not found` });
+        }
+        return res.status(200).json({ success: true, data: snippets });
+    }).catch(err => console.log(err))
+}
+
+getSnippets = async (req, res) => {
     await Snippet.find({}, (err, snippets) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
@@ -117,7 +147,7 @@ getSnippets = async(req, res) => {
     }).catch(err => console.log(err))
 }
 
-getSnippetTags = async(req, res) => {
+getSnippetTags = async (req, res) => {
     await Snippet.findOne({ _id: req.params.id }, (err, snippet) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
@@ -137,5 +167,7 @@ module.exports = {
     updateSnippet,
     deleteSnippet,
     getSnippetById,
+    getSnippetByUserId,
     getSnippets,
+    getSnippetsPerTag
 }

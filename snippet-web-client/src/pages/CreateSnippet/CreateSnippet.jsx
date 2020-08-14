@@ -2,6 +2,7 @@ import React from 'react';
 import './CreateSnippet.css';
 import api from '../../api/index';
 import { Card, CardContent, TextField, Divider, TextareaAutosize } from '@material-ui/core';
+import { getUserParams } from '../../helpers/user-helper';
 
 class CreateSnippet extends React.PureComponent {
     constructor(props) {
@@ -11,7 +12,8 @@ class CreateSnippet extends React.PureComponent {
             name: '',
             tags: [],
             likes: 0,
-            code: ''
+            code: '',
+            userId: 1
         }
     }
 
@@ -43,13 +45,15 @@ class CreateSnippet extends React.PureComponent {
     }
 
     handleAddSnippet = async () => {
-        const { name, tags, code, likes } = this.state;
+        const role = getUserParams();
+
+        const { name, tags, code, likes, userId } = this.state;
         const arrayTags = tags;
 
         let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) === index);
 
         const sendTags = findDuplicates(arrayTags);
-        const payload = { name, tags: sendTags, code, likes };
+        const payload = { name, tags: sendTags, code, likes, userId };
 
         await api.addSnippet(payload).then(res => {
             window.alert(`Snippet inserted successfully`);
@@ -57,7 +61,8 @@ class CreateSnippet extends React.PureComponent {
                 name: '',
                 tags: [],
                 code: '',
-                likes: 0
+                likes: 0,
+                userId: 1
             });
         });
     }

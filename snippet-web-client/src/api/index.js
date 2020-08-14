@@ -12,6 +12,7 @@ export const getAllSnippets = () => api.get(`/snippets`);
 export const updateSnippetById = (id, payload) => api.put(`/snippet/${id}`, payload);
 export const deleteSnippetById = id => api.delete(`/snippet/${id}`);
 export const getSnippetById = id => api.get(`/snippet/${id}`);
+export const getSnippetByUserId = userId => api.get(`/snippets-byuser/${userId}`);
 
 const apis = {
     createUser,
@@ -21,6 +22,7 @@ const apis = {
     updateSnippetById,
     deleteSnippetById,
     getSnippetById,
+    getSnippetByUserId
 }
 
 export default apis;
