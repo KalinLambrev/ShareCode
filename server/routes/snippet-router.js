@@ -6,15 +6,28 @@ const snippetCtrl = require('../controllers/snippet-ctrl');
 
 const router = express.Router();
 
-router.post('/user', UserCtrl.createUser);
-router.get('/user/:id', UserCtrl.getUserById);
+// === ENDPOINT CONSTANTS ===
 
-router.post('/snippet', SnippetCtrl.createSnippet);
-router.put('/snippet/:id', SnippetCtrl.updateSnippet);
-router.delete('/snippet/:id', SnippetCtrl.deleteSnippet);
-router.get('/snippet/:id', SnippetCtrl.getSnippetById);
-router.get('/snippets-byuser/:userId', snippetCtrl.getSnippetByUserId);
-router.get('/snippets', SnippetCtrl.getSnippets);
-router.get('/get-tag-snippets', snippetCtrl.getSnippetsPerTag);
+const USER = '/user';
+const USER_ID = '/user/:id';
+const SNIPPET_ID = '/snippet/:id';
+const SNIPPET = '/snippet';
+const SNIPPET_BY_USER_ID = '/snippets-byuser/:userId';
+const TAG_SNIPPETS = '/tag-snippets';
+
+// === ENDPOINTS ===
+
+router.post(USER, UserCtrl.createUser);
+router.get(USER_ID, UserCtrl.getUserById);
+
+router.get(SNIPPET, SnippetCtrl.getSnippets);
+router.post(SNIPPET, SnippetCtrl.createSnippet);
+
+router.get(SNIPPET_ID, SnippetCtrl.getSnippetById);
+router.put(SNIPPET_ID, SnippetCtrl.updateSnippet);
+router.delete(SNIPPET_ID, SnippetCtrl.deleteSnippet);
+
+router.get(SNIPPET_BY_USER_ID, snippetCtrl.getSnippetByUserId);
+router.get(TAG_SNIPPETS, snippetCtrl.getSnippetsPerTag);
 
 module.exports = router;

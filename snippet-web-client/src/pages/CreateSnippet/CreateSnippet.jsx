@@ -71,7 +71,7 @@ class CreateSnippet extends React.PureComponent {
         return (
             <div>
                 <h2 className="create-snippet-header">Create Snippet</h2>
-                <h5 className="second-header">Hier you cann add a nue snippet</h5>
+                <h5 className="second-header">Hier you can add a new snippet</h5>
                 <div className="card-wrapper">
                     <Card>
                         <CardContent className="card-content">
