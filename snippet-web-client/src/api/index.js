@@ -5,6 +5,8 @@ const api = axios.create({
 });
 
 export const createUser = payload => api.post('/user', payload);
+export const getUserById = id => api.get(`/user/${id}`);
+
 export const addSnippet = payload => api.post(`/snippet`, payload);
 export const getAllSnippets = () => api.get(`/snippets`);
 export const updateSnippetById = (id, payload) => api.put(`/snippet/${id}`, payload);
@@ -13,6 +15,7 @@ export const getSnippetById = id => api.get(`/snippet/${id}`);
 
 const apis = {
     createUser,
+    getUserById,
     addSnippet,
     getAllSnippets,
     updateSnippetById,

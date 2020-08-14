@@ -10,23 +10,51 @@ class ChooseUser extends React.PureComponent {
         super(props)
 
         this.state = {
-            role: ''
+            role: '',
+            id: null
+        }
+    }
+
+    createUser = async (id, role) => {
+        const payload = { id, role };
+
+        await api.createUser(payload).then(res => {
+            window.alert(`User inserted successfully`);
+            this.setState({
+                role: '',
+                id: null
+            });
+            window.location.assign('/all-snippets')
+        });
+    }
+
+    checkRole = (role) => {
+        switch (role) {
+            case 'member':
+                return 1;
+            case 'admin':
+                return 2;
+            case 'incognito':
+                return 3;
+            default:
+                break;
         }
     }
 
     handleAddSnippet = async (e) => {
         e.preventDefault();
 
-        const val = e.target.value
-        const payload = { role: val };
+        const wantedRole = e.target.value
+        const id = this.checkRole(wantedRole);
 
-        await api.createUser(payload).then(res => {
-            window.alert(`User inserted successfully`);
-            this.setState({
-                role: ''
+        await api.getUserById(id)
+            .then((user => {
+                console.log(user);
+                window.location.assign('/all-snippets');
+            }), (error) => {
+                console.log(error, 'There is no such of user. We created automaticaly');
+                this.createUser(id, wantedRole);
             });
-        });
-        window.location.assign('/all-snippets');
     }
 
     render() {
@@ -37,17 +65,17 @@ class ChooseUser extends React.PureComponent {
                     <div className="choose-button">
                         <button onClick={this.handleAddSnippet} value="member">
                             As Member
-                            </button>
+                        </button>
                     </div>
                     <div className="choose-button">
                         <button onClick={this.handleAddSnippet} value="admin">
                             As Admin
-                            </button>
+                        </button>
                     </div>
                     <div className="choose-button">
                         <button onClick={this.handleAddSnippet} value="incognito">
                             Incognito
-                            </button>
+                        </button>
                     </div>
                 </div>
             </div>

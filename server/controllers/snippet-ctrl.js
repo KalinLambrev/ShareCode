@@ -33,8 +33,8 @@ createSnippet = (req, res) => {
         });
 }
 
-updateSnippet = async (req, res) => {
-    const body = req.body
+updateSnippet = async(req, res) => {
+    const body = req.body;
 
     if (!body) {
         return res.status(400).json({
@@ -72,64 +72,64 @@ updateSnippet = async (req, res) => {
     })
 }
 
-deleteSnippet = async (req, res) => {
+deleteSnippet = async(req, res) => {
     await Snippet.findOneAndDelete({ _id: req.params.id }, (err, snippet) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err });
         }
 
         if (!snippet) {
             return res
                 .status(404)
-                .json({ success: false, error: `Snippet not found` })
+                .json({ success: false, error: `Snippet not found` });
         }
 
-        return res.status(200).json({ success: true, data: snippet })
+        return res.status(200).json({ success: true, data: snippet });
     }).catch(err => console.log(err))
 }
 
-getSnippetById = async (req, res) => {
+getSnippetById = async(req, res) => {
     await Snippet.findOne({ _id: req.params.id }, (err, snippet) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err });
         }
 
         if (!snippet) {
             return res
                 .status(404)
-                .json({ success: false, error: `Snippet not found` })
+                .json({ success: false, error: `Snippet not found` });
         }
-        return res.status(200).json({ success: true, data: snippet })
+        return res.status(200).json({ success: true, data: snippet });
     }).catch(err => console.log(err))
 }
 
-getSnippets = async (req, res) => {
+getSnippets = async(req, res) => {
     await Snippet.find({}, (err, snippets) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err });
         }
         if (!snippets.length) {
             return res
                 .status(404)
-                .json({ success: false, error: `Snippet not found` })
+                .json({ success: false, error: `Snippet not found` });
         }
-        return res.status(200).json({ success: true, data: snippets })
+        return res.status(200).json({ success: true, data: snippets });
     }).catch(err => console.log(err))
 }
 
-getSnippetTags = async (req, res) => {
+getSnippetTags = async(req, res) => {
     await Snippet.findOne({ _id: req.params.id }, (err, snippet) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err });
         }
 
         if (!snippet) {
             return res
                 .status(404)
-                .json({ success: false, error: `Snippet not found` })
+                .json({ success: false, error: `Snippet not found` });
         }
-        return res.status(200).json({ success: true, data: snippet })
-    }).catch(err => console.log(err))
+        return res.status(200).json({ success: true, data: snippet });
+    }).catch(err => console.log(err));
 }
 
 module.exports = {
