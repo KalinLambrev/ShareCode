@@ -1,7 +1,7 @@
 import React from 'react';
 import './CreateSnippet.css';
 import api from '../../api/index';
-import { Card, CardContent, TextField, CardMedia, Divider, TextareaAutosize } from '@material-ui/core';
+import { Card, CardContent, TextField, Divider, TextareaAutosize } from '@material-ui/core';
 
 class CreateSnippet extends React.PureComponent {
     constructor(props) {
@@ -16,34 +16,30 @@ class CreateSnippet extends React.PureComponent {
     }
 
     handleChangeInputName = async event => {
-        const name = event.target.value
-        console.log(name);
+        const name = event.target.value;
         this.setState({ name: name });
     }
 
     handleChangeInputTags = async event => {
-        const tags = event.target.validity.valid
-            ? event.target.value
-            : this.state.tags
+        const tags = event.target.validity.valid ? event.target.value : this.state.tags;
         const arrayTags = tags.split(', ');
         this.setState({ tags: arrayTags });
     }
 
     handleChangeInputCode = async event => {
         const code = event.target.value;
-        console.log(code);
         this.setState({ code: code });
     }
 
-    checkIfDuplicateExists = (w) => {
-        let op = [];
-        console.log(w);
-        w.forEach((element, index) => {
-            if (w.indexOf(element) != index) {
-                op.push(element);
+    checkIfDuplicateExists = (rawArray) => {
+        let realArr = [];
+
+        rawArray.forEach((element, index) => {
+            if (rawArray.indexOf(element) != index) {
+                realArr.push(element);
             }
         });
-        return op;
+        return realArr;
     }
 
     handleAddSnippet = async () => {
@@ -53,12 +49,7 @@ class CreateSnippet extends React.PureComponent {
         let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) === index);
 
         const sendTags = findDuplicates(arrayTags);
-        console.log(sendTags);
-
-
         const payload = { name, tags: sendTags, code, likes };
-
-        console.log(payload);
 
         await api.addSnippet(payload).then(res => {
             window.alert(`Snippet inserted successfully`);

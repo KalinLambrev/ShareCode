@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './SnippetAccordion.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -40,11 +41,10 @@ export default function SnippetAccordion(props) {
         if (tags) {
             tags
                 .map((tag, index) => {
-                    const end = tags.length;
                     if (index !== tags.length - 1) {
-                        returnTags.push(<span>{tag}, </span>);
+                        return returnTags.push(<span key={tag}>{tag}, </span>);
                     } else {
-                        returnTags.push(<span>{tag} </span>);
+                        return returnTags.push(<span key={tag}>{tag} </span>);
                     }
                 });
         } else {
@@ -59,25 +59,31 @@ export default function SnippetAccordion(props) {
         api.updateSnippetById(props.snippet._id, { name: props.snippet.name, tags: props.snippet.tags, likes: newLike, code: props.snippet.code });
     }
 
-
-    console.log(props.snippet, 'OOOOHOOOO');
-
     return (
         <div className={classes.root}>
             <Accordion expanded={expanded === 'panel'} onChange={handleChange('panel')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-                    <Typography className={classes.heading}>{props.snippet.name}</Typography>
-                    <Typography className={classes.secondaryHeading}>{displayTags(props.snippet.tags)}</Typography>
-                    <Typography className={classes.secondaryHeading}>{count}</Typography>
-                    <Typography className={classes.secondaryHeading}>
+                    <Typography className={classes.heading} component={'span'}>
+                        <h6 className="code-section-header">Snippet name</h6>
+                        {props.snippet.name}
+                    </Typography>
+                    <Typography className={classes.secondaryHeading} component={'span'}>
+                        <h6 className="code-section-header">Tags</h6>
+                        {displayTags(props.snippet.tags)}
+                    </Typography>
+                    <Typography className={classes.secondaryHeading} component={'span'}>
+                        <h6 className="code-section-header">Likes</h6>
+                        {count}
+                    </Typography>
+                    <Typography className={classes.secondaryHeading} component={'span'}>
                         <div className="like-button">
-
                             <button onClick={likeSnippetNew} >Like</button>
                         </div>
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
+                    <Typography component={'span'}>
+                        <h5 className="code-section-header">Snippet Code:</h5>
                         {props.snippet.code}
                     </Typography>
                 </AccordionDetails>

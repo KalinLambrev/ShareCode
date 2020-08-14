@@ -1,0 +1,44 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-header {
+    text-align: center;
+    height: 28px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 24px;
+    color: #4c4c4c;
+    margin-bottom: 1rem;
+}
+
+
+/*Choose User button*/
+
+.user-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.choose-button {
+    padding-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.choose-button>button {
+    border: 1px solid rgb(46, 164, 175);
+    width: 7rem;
+    height: 2.6rem;
+    border-radius: 4px;
+    background-color: rgb(46, 164, 175);
+}
+
+.choose-button button {
+    color: white !important;
+    text-decoration: none !important;
+}

@@ -49,6 +49,10 @@
   flex-direction: column;
 }
 
+textarea {
+  margin-top: 1rem;
+}
+
 /*Create button*/
 
 .create-snippet-button{

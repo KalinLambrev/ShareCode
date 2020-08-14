@@ -23,11 +23,10 @@ class SnippetList extends React.PureComponent {
     }
 
     render() {
-        console.log(this.state.snippets);
         const snippets = this.state.snippets;
         return (
             <div className="list-wrapper">
-                {snippets.map(snipp => <div key={snipp}> {<SnippetAccordion snippet={snipp} />} </div>)}
+                {snippets.map(snipp => <div key={snipp.name}> {<SnippetAccordion snippet={snipp} />} </div>)}
             </div>
         );
     }

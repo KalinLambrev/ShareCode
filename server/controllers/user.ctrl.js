@@ -1,3 +1,5 @@
+const User = require('../models/user-model');
+
 createUser = (req, res) => {
     const body = req.body;
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Navbar } from '../components/Navbar/Navbar';
-import { CreateSnippet, SnippetList, OwnSnippetList } from '../pages';
+import { CreateSnippet, SnippetList, OwnSnippetList, ChooseUser } from '../pages';
 
 function App() {
     return (
@@ -15,6 +15,7 @@ function App() {
                     path="/create-snippet"
                     exact component={CreateSnippet}
                 />
+                <Route path="/" exact component={ChooseUser} />
             </Switch>
         </Router>
     )
