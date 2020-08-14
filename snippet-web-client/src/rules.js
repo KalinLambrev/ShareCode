@@ -1,6 +1,6 @@
 const rules = {
     member: {
-        static: ["snippets:list", "snippets:create", "snippets:like", "snippets:getOwn"]
+        static: ["snippets:list", "snippets:create", "snippets:like"]
     },
     admin: {
         static: [
