@@ -1,4 +1,5 @@
 const Snippet = require('../models/snippet-model');
+const Tag = require('../models/tag-model');
 
 createSnippet = (req, res) => {
     const body = req.body;
@@ -11,6 +12,8 @@ createSnippet = (req, res) => {
     }
 
     const snippet = new Snippet(body);
+    console.log(body.tags, 'BOOOOODY');
+    // createTags(snippet.tags);
 
     if (!snippet) {
         return res.status(400).json({ success: false, error: err });
@@ -160,6 +163,41 @@ getSnippetTags = async (req, res) => {
         }
         return res.status(200).json({ success: true, data: snippet });
     }).catch(err => console.log(err));
+}
+
+createTags = (tags, res) => {
+
+    tags.forEach(tag => {
+        const tagToCreate = new Tag({ name: tag });
+
+        if (isThereATagTag(tagToCreate.id)) {
+            tagToCreate
+                .save()
+                .then(() => {
+                    return res.status(201).json({
+                        success: true,
+                        id: tagToCreate._id,
+                        message: 'Code tag created!',
+                    });
+                })
+                .catch(error => {
+                    return res.status(400).json({
+                        error,
+                        message: 'Code tag not created!',
+                    });
+                });
+        }
+    });
+}
+
+isThereATagTag = async (id) => {
+    await Snippet.findOne({ _id: id }, (err, snippet) => {
+        if (err) {
+            return false
+        } else {
+            return true;
+        }
+    })
 }
 
 module.exports = {

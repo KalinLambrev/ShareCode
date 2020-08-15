@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import api from '../../api/index';
 import Can from '../Can/Can';
-import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,10 +27,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SnippetAccordion(props) {
+
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
     const [count, setCount] = useState(props.snippet.likes);
+    const [disable, disableButton] = React.useState(false);
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -56,8 +57,10 @@ export default function SnippetAccordion(props) {
     }
 
     const likeSnippetNew = async () => {
-        setCount(count + 1);
         let newLike = count + 1;
+
+        setCount(newLike);
+        disableButton(true);
         api.updateSnippetById(props.snippet._id, { name: props.snippet.name, tags: props.snippet.tags, likes: newLike, code: props.snippet.code });
     }
 
@@ -67,7 +70,7 @@ export default function SnippetAccordion(props) {
                 window.location.assign(`/all-snippets?role=${props.role}`);
             });
     }
-
+    console.log(props.snippet.tags);
     return (
         <div className={classes.root}>
             <Accordion expanded={expanded === 'panel'} onChange={handleChange('panel')}>
@@ -78,7 +81,7 @@ export default function SnippetAccordion(props) {
                     </Typography>
                     <Typography className={classes.secondaryHeading} component={'span'}>
                         <h6 className="code-section-header">Tags</h6>
-                        {displayTags(props.snippet.tags)}
+                        {/* {displayTags(props.snippet.tags)} */}
                     </Typography>
                     <Typography className={classes.secondaryHeading} component={'span'}>
                         <h6 className="code-section-header">Likes</h6>
@@ -89,8 +92,8 @@ export default function SnippetAccordion(props) {
                             role={props.role}
                             perform="snippets:like"
                             yes={() => (
-                                <div className="like-button">
-                                    <button onClick={likeSnippetNew} >Like</button>
+                                <div className="like-delete-button">
+                                    <button disabled={disable} onClick={likeSnippetNew} >Like</button>
                                 </div>
                             )}
                         />
@@ -98,7 +101,7 @@ export default function SnippetAccordion(props) {
                             role={props.role}
                             perform="snippets:delete"
                             yes={() => (
-                                <div className="like-button">
+                                <div className="like-delete-button">
                                     <button onClick={deleteSnippet} >Delete</button>
                                 </div>
                             )}
@@ -107,8 +110,20 @@ export default function SnippetAccordion(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography component={'span'}>
-                        <h5 className="code-section-header">Snippet Code:</h5>
-                        <p className="sniped-code-paragraph">{props.snippet.code}</p>
+                        <div className="code-section">
+                            <h5 className="code-section-header">Snippet Code:</h5>
+                            <p className="sniped-code-paragraph">{props.snippet.code}</p>
+                        </div>
+                        <Can
+                            role={props.role}
+                            perform="snippets:delete"
+                            yes={() => (
+                                <div className="admin-report-section">
+                                    <h5 className="admin-section-header">Admin Report:</h5>
+                                    <p className="admin-report">Tags per snippet</p>
+                                </div>
+                            )}
+                        />
                     </Typography>
                 </AccordionDetails>
             </Accordion>
