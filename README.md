@@ -1,9 +1,9 @@
-# Share Code Platfor
+# Share Code Platform
 
-Simple share a snippets of code platform with user roles. 
+Share snippets of code platform with user roles. 
 Create a simple snippets, list and like them as Member.
 Delete and list the snippets as Admin.
-As Incognito User you can onle list the snippets.
+As Incognito User you can only list the snippets.
 
 ## Star server
 
