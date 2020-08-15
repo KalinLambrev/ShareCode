@@ -11,7 +11,6 @@ createSnippet = (req, res) => {
     }
 
     const snippet = new Snippet(body);
-    console.log(body.tags, 'BOOOOODY');
     // createTags(snippet.tags);
 
     if (!snippet) {

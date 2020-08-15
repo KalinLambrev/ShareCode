@@ -37,7 +37,7 @@ class SnippetList extends React.PureComponent {
     render() {
         const snippets = this.state.snippets;
         const role = this.state.user.role;
-        console.log(this.state.user);
+
         return (
             <div className="list-wrapper">
                 {snippets.map(snipp => <div key={snipp.name}> {<SnippetAccordion snippet={snipp} role={role} />} </div>)}

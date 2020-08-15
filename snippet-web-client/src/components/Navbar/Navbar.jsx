@@ -7,7 +7,6 @@ import Can from '../Can/Can';
 export class Navbar extends React.PureComponent {
 
     render() {
-        console.log(getUserParams());
         return (
             <nav>
                 <ul className="menu">

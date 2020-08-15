@@ -70,7 +70,7 @@ export default function SnippetAccordion(props) {
                 window.location.assign(`/all-snippets?role=${props.role}`);
             });
     }
-    console.log(props.snippet.tags);
+
     return (
         <div className={classes.root}>
             <Accordion expanded={expanded === 'panel'} onChange={handleChange('panel')}>
