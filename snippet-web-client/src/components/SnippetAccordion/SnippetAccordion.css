@@ -1,0 +1,31 @@
+.code-section-header {
+  font-family:"Roboto", "Helvetica", "Arial", sans-serif;
+  color: #746666;
+}
+
+.sniped-code-paragraph {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: beige;
+  white-space: pre-wrap;
+}
+
+.like-delete-button {
+    padding-top:0.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.like-delete-button > button {
+    border: 1px solid rgb(46, 164, 175);
+    width: 4rem;
+    height: 1.5rem;
+    border-radius: 4px;
+    background-color: rgb(46, 164, 175);
+}
+
+.like-delete-button button {
+    color: white !important;
+    text-decoration: none !important;
+}
